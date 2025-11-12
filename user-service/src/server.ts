@@ -58,7 +58,7 @@ async function start() {
     await server.register(healthRoutes, { prefix: '/health' });
 
     // Start server
-    await server.listen({ port: config.port, host: 'localhost' });
+    await server.listen({ port: Number(process.env.PORT) || 3000, host: '0.0.0.0' });
     console.log(`🚀 User Service running on port ${config.port}`);
   } catch (err) {
     server.log.error(err);
