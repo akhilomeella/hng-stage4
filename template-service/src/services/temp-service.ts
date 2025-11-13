@@ -99,10 +99,12 @@ if (typeof template.variables === 'string') {
         client.query(`SELECT COUNT(*) FROM (${countQuery}) as count_query`, countParams),
       ]);
 
-      const templates = templatesResult.rows.map(t => ({
+           const templates = templatesResult.rows.map(t => ({
         ...t,
-        variables: JSON.parse(t.variables),
+        variables: typeof t.variables === 'string' ? JSON.parse(t.variables) : t.variables,
       }));
+
+
 
       const total = parseInt(countResult.rows[0].count);
       const total_pages = Math.ceil(total / limit);
@@ -138,7 +140,8 @@ if (typeof template.variables === 'string') {
       }
 
       const template = result.rows[0];
-      template.variables = JSON.parse(template.variables);
+      if (typeof template.variables === 'string') {
+      template.variables = JSON.parse(template.variables);}
       
       await this.cacheTemplate(template);
       return template;
@@ -158,7 +161,8 @@ if (typeof template.variables === 'string') {
       }
 
       const template = result.rows[0];
-      template.variables = JSON.parse(template.variables);
+      if (typeof template.variables === 'string') {
+      template.variables = JSON.parse(template.variables);}
       return template;
     } finally {
       client.release();
@@ -219,7 +223,8 @@ if (typeof template.variables === 'string') {
       );
 
       const updatedTemplate = result.rows[0];
-      updatedTemplate.variables = JSON.parse(updatedTemplate.variables);
+      if (typeof updatedTemplate.variables === 'string') {
+      updatedTemplate.variables = JSON.parse(updatedTemplate.variables);}
 
       if (bodyChanged) {
         await this.createVersion(
@@ -304,7 +309,8 @@ if (typeof template.variables === 'string') {
       }
 
       const version = result.rows[0];
-      version.variables = JSON.parse(version.variables);
+      if (typeof version.variables === 'string') {
+      version.variables = JSON.parse(version.variables);}
       return version;
     } finally {
       client.release();
@@ -326,7 +332,8 @@ if (typeof template.variables === 'string') {
       );
 
       const updatedTemplate = result.rows[0];
-      updatedTemplate.variables = JSON.parse(updatedTemplate.variables);
+     if (typeof updatedTemplate.variables === 'string') {
+      updatedTemplate.variables = JSON.parse(updatedTemplate.variables);}
 
       await this.createVersion(
         templateId,
