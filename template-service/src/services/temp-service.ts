@@ -43,7 +43,7 @@ export class TemplateService {
           input.body,
           input.type,
           input.language || 'en',
-          JSON.stringify(variables),
+          JSON.stringify(input.variables || []),
           input.is_active !== undefined ? input.is_active : true,
           input.description,
         ]

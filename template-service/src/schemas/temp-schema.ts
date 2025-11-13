@@ -25,7 +25,7 @@ export const queryTemplateSchema = z.object({
   page: z.coerce.number().min(1).default(1),  
   limit: z.coerce.number().min(1).default(10),
   search: z.string().optional(),
-  type: z.enum(['email', 'push', 'sms']).optional(),
+  type: z.enum(['email', 'push']).optional(),
   language: z.string().optional(),
 });
 
