@@ -50,7 +50,9 @@ export class TemplateService {
       );
 
       const template = result.rows[0];
+if (typeof template.variables === 'string') {
       template.variables = JSON.parse(template.variables);
+    }
 
       // Create initial version
       await this.createVersion(template.id, template, 'Initial version');
